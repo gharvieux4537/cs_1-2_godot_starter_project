@@ -15,37 +15,35 @@ var yDirection = 0
 # var projectile_scene = preload("res://scenes/projectile.tscn")
 
 func _physics_process(_delta):
-	# TODO: Get horizontal input (left/right keys)
-	# Input.get_axis checks two keys and gives us a number:
-	# - When LEFT is pressed: returns -1.0
-	# - When RIGHT is pressed: returns 1.0  
-	# - When NOTHING is pressed: returns 0.0
+	
+	update_animation()
+	
 	xDirection = Input.get_axis("ui_left", "ui_right")
 	
-	# TODO: Get vertical input (up/down keys)  
-	# Same idea, but for up and down movement
 	yDirection = Input.get_axis("ui_up", "ui_down")
-	
 
-	# TODO: Calculate X movement by multiplying direction × speed
-	# This gives us the actual pixels to move this frame
-	# If direction is 1 and speed is 300, we get 300 pixels right
-	# If direction is -1 and speed is 300, we get -300 pixels (left)
+	velocity.x = xSpeed * xDirection
 	
-	
-	# TODO: Calculate Y movement the same way
+	velocity.y = ySpeed * yDirection
 	
 	
 	# TODO: Set the player's velocity (how fast they're moving)
 	# Godot's CharacterBody2D uses a velocity system
 	
-	
-	
+	if xDirection > 0:
+		facing="right"
+	if xDirection < 0:
+		facing="left"
+	if yDirection > 0:
+		facing="down"
+	if yDirection < 0:
+		facing="up"
 	# TODO: Update facing direction based on movement
 	# Use if statements to check xDirection and yDirection
 	# Set facing to "right", "left", "down", or "up"
 	# Only update facing when actually moving (direction != 0)
 	
+		
 	
 	# TODO: Update animation based on facing direction
 	# Call your update_animation() function here
@@ -56,11 +54,13 @@ func _physics_process(_delta):
 
 # TODO: Create animation function (add this outside of _physics_process)
 func update_animation():
+	_animation_player.play("idle_" + facing)
+	
 	# TODO: Set the animation based on the facing direction
 	# Use: _animation_player.play("idle_" + facing)
 	# This combines "idle_" with whatever direction we're facing
 	pass
-
+	
 
 # TODO: Create health change function for interactions
 func change_health(amount):
