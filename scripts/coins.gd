@@ -1,9 +1,13 @@
 extends Node
 
+var coins =0 
 
 func _on_body_entered(body):
 	pass
-	# TODO: Check if the object that touched the coin is the player
+	if body.name== "Player":
+		coins+= 1
+		body.change_coins (1)
+	queue_free()
 	
 	
 	
